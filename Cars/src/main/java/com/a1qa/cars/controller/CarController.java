@@ -5,8 +5,6 @@ import com.a1qa.cars.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(path = "/api/cars")
 public class CarController {
@@ -14,17 +12,17 @@ public class CarController {
     @Autowired
     private CarRepository repository;
 
-    @GetMapping
+    @RequestMapping
     public Iterable<Car> findAll() {
         return repository.findAll();
     }
 
-    @PostMapping(consumes = "application/json")
+    @RequestMapping(consumes = "application/json", method = RequestMethod.POST)
     public Car createCar(@RequestBody Car car) {
         return repository.save(car);
     }
 
-    @DeleteMapping()
+    @RequestMapping(method = RequestMethod.DELETE)
     public void deleteCar(@RequestParam("id") int id) {
         repository.delete(id);
     }
